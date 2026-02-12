@@ -10,10 +10,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ProdutosController {
     @FXML private TextField txtNome;
     @FXML private TextField txtPreco;
+    @FXML private TextField txtCodigo;
+    @FXML private TextField txtEstoque;
+    @FXML private TextField txtFornecedor;
+
+
     @FXML private TableView<Produto> tabelaProdutos;
     @FXML private TableColumn<Produto, Integer> colId;
     @FXML private TableColumn<Produto, String> colNome;
     @FXML private TableColumn<Produto, Double> colPreco;
+    @FXML private TableColumn<Produto, Integer> colCodigo;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    @FXML private TableColumn<Produto, Integer> colEstoque;
 
     private ProdutoDAO dao = new ProdutoDAO();
     private Produto produtoSelecionado;
@@ -23,6 +31,9 @@ public class ProdutosController {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
         atualizarTabela();
     }
 
@@ -36,15 +47,34 @@ public class ProdutosController {
     public void salvarProduto() {
         try {
             if (produtoSelecionado == null) {
-                dao.salvar(new Produto(txtNome.getText(), Double.parseDouble(txtPreco.getText())));
+                // Cria um novo objeto vazio
+                Produto novo = new Produto();
+
+                // Preenche todos os campos usando os Setters
+                novo.setNome(txtNome.getText());
+                novo.setPreco(Double.parseDouble(txtPreco.getText().replace(",", ".")));
+                novo.setCodigo(txtCodigo.getText());
+                novo.setEstoque(Integer.parseInt(txtEstoque.getText()));
+                novo.setFornecedor(txtFornecedor.getText());
+
+                dao.salvar(novo);
             } else {
+                // Atualiza o produto que já estava selecionado
                 produtoSelecionado.setNome(txtNome.getText());
-                produtoSelecionado.setPreco(Double.parseDouble(txtPreco.getText()));
+                produtoSelecionado.setPreco(Double.parseDouble(txtPreco.getText().replace(",", ".")));
+                produtoSelecionado.setCodigo(txtCodigo.getText());
+                produtoSelecionado.setEstoque(Integer.parseInt(txtEstoque.getText()));
+                produtoSelecionado.setFornecedor(txtFornecedor.getText());
+
                 dao.atualizar(produtoSelecionado);
             }
             atualizarTabela();
             limparCampos();
-        } catch (Exception e) { exibirAlerta("Erro", e.getMessage()); }
+        } catch (NumberFormatException e) {
+            exibirAlerta("Erro de Formato", "Preço e Estoque devem ser números válidos!");
+        } catch (Exception e) {
+            exibirAlerta("Erro", e.getMessage());
+        }
     }
 
     @FXML

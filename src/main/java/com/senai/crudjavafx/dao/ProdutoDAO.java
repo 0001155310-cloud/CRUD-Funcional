@@ -1,5 +1,6 @@
 package com.senai.crudjavafx.dao;
 
+import com.senai.crudjavafx.factory.ConnectionFactory;
 import com.senai.crudjavafx.model.Produto;
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.senai.crudjavafx.controller.RelatorioVendasController">
+    <children>
+        <BorderPane fx:id="root" prefHeight="500.0" prefWidth="850.0" style="-fx-background-color: linear-gradient(to top, #050b14 0%, #0b1c2d 45%, #12263a 100%);">
+            <left>
+                <TableView fx:id="tabelaVendas" prefHeight="400.0" prefWidth="520.0" style="-fx-background-color: linear-gradient(to bottom, rgba(221, 221, 221), #0f172a); -fx-background-radius: 12;" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="colData" prefWidth="150.0" text="Data da Venda" />
+                        <TableColumn fx:id="colCliente" prefWidth="200.0" text="Cliente" />
+                        <TableColumn fx:id="colTotal" prefWidth="150.0" text="Total da Venda" />
+                    </columns>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="15.0" top="15.0" />
+                    </BorderPane.margin>
+                </TableView>
+            </left>
+            <bottom>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="850.0" spacing="10.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#excluirVenda" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #7f1d1d; -fx-background-radius: 10;" text="Excluir" textFill="WHITE">
+                            <font><Font name="System Bold" size="12.0" /></font>
+                            <cursor><Cursor fx:constant="HAND" /></cursor>
+                            <effect><DropShadow /></effect>
+                            <HBox.margin><Insets left="15.0" /></HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#limparCampos" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #334155; -fx-background-radius: 10;" text="Limpar" textFill="WHITE">
+                            <font><Font name="System Bold" size="12.0" /></font>
+                            <cursor><Cursor fx:constant="HAND" /></cursor>
+                            <effect><DropShadow /></effect>
+                        </Button>
+                    </children>
+                </HBox>
+            </bottom>
+            <right>
+                <Pane prefHeight="425.0" prefWidth="280.0" style="-fx-background-color: rgba(255, 255, 255, 0.12); -fx-background-radius: 18; -fx-border-radius: 18; -fx-border-color: rgba(255,255,255,0.2); -fx-border-width: 2;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Text fill="WHITE" layoutX="45.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtros de Busca" textAlignment="CENTER">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Text>
+
+                        <Label layoutX="15.0" layoutY="80.0" text="Início:" textFill="WHITE">
+                            <font><Font name="System Bold" size="13.0" /></font>
+                        </Label>
+                        <DatePicker fx:id="dpInicio" layoutX="70.0" layoutY="76.0" prefHeight="25.0" prefWidth="190.0" promptText="Data inicial" />
+
+                        <Label layoutX="15.0" layoutY="125.0" text="Fim:" textFill="WHITE">
+                            <font><Font name="System Bold" size="13.0" /></font>
+                        </Label>
+                        <DatePicker fx:id="dpFim" layoutX="70.0" layoutY="121.0" prefHeight="25.0" prefWidth="190.0" promptText="Data final" />
+
+                        <Label layoutX="15.0" layoutY="170.0" text="Tipo:" textFill="WHITE">
+                            <font><Font name="System Bold" size="13.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="cbTipoVenda" layoutX="70.0" layoutY="166.0" prefHeight="25.0" prefWidth="190.0" promptText="Selecione..." />
+
+                        <Button layoutX="62.0" layoutY="330.0" mnemonicParsing="false" onAction="#buscarVendas" prefHeight="45.0" prefWidth="156.0" style="-fx-background-color: #1e40af; -fx-border-color: white; -fx-border-radius: 20; -fx-background-radius: 20;" text="BUSCAR VENDAS" textFill="WHITE">
+                            <font><Font name="System Bold" size="12.0" /></font>
+                            <cursor><Cursor fx:constant="HAND" /></cursor>
+                            <effect>
+                                <DropShadow radius="4.75" width="0.0">
+                                    <color><Color red="0.117" green="0.250" blue="0.686" /></color>
+                                </DropShadow>
+                            </effect>
+                        </Button>
+                    </children>
+                    <BorderPane.margin><Insets right="15.0" top="15.0" /></BorderPane.margin>
+                </Pane>
+            </right>
+        </BorderPane>
+    </children>
+</AnchorPane>
