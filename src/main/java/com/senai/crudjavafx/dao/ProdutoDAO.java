@@ -14,10 +14,14 @@ public class ProdutoDAO {
     }
 
     public void salvar(Produto produto) throws SQLException {
-        String sql = "INSERT INTO produtos (nome, preco) VALUES (?, ?)";
+        // Atualizado para incluir codigo, estoque e fornecedor
+        String sql = "INSERT INTO produtos (nome, preco, codigo, estoque, fornecedor) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPreco());
+            stmt.setString(3, produto.getCodigo());
+            stmt.setInt(4, produto.getEstoque());
+            stmt.setString(5, produto.getFornecedor());
             stmt.execute();
         }
     }
@@ -32,6 +36,10 @@ public class ProdutoDAO {
                 p.setId(rs.getInt("id"));
                 p.setNome(rs.getString("nome"));
                 p.setPreco(rs.getDouble("preco"));
+                // Novos campos adicionados na leitura
+                p.setCodigo(rs.getString("codigo"));
+                p.setEstoque(rs.getInt("estoque"));
+                p.setFornecedor(rs.getString("fornecedor"));
                 produtos.add(p);
             }
         }
@@ -39,11 +47,15 @@ public class ProdutoDAO {
     }
 
     public void atualizar(Produto produto) throws SQLException {
-        String sql = "UPDATE produtos SET nome = ?, preco = ? WHERE id = ?";
+        // Atualizado para refletir as alterações em todos os campos
+        String sql = "UPDATE produtos SET nome = ?, preco = ?, codigo = ?, estoque = ?, fornecedor = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPreco());
-            stmt.setInt(3, produto.getId());
+            stmt.setString(3, produto.getCodigo());
+            stmt.setInt(4, produto.getEstoque());
+            stmt.setString(5, produto.getFornecedor());
+            stmt.setInt(6, produto.getId());
             stmt.execute();
         }
     }
